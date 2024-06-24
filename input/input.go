@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/muriloperosa/notes-go/output"
 )
 
 func Text(prompt string) string {
@@ -19,6 +21,19 @@ func Text(prompt string) string {
 
 	value = strings.TrimSuffix(value, "\n")
 	value = strings.TrimSuffix(value, "\r")
+
+	return value
+}
+
+func Int(prompt string) int {
+	fmt.Printf("%v ", prompt)
+
+	var value int
+	_, err := fmt.Scan(&value)
+
+	if err != nil {
+		output.Error(err)
+	}
 
 	return value
 }

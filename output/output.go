@@ -9,3 +9,13 @@ func Error(err error) {
 func TextLn(txt string) {
 	fmt.Println(txt)
 }
+
+func BlankLine() {
+	TextLn("")
+}
+
+func Notice(txt string) {
+	BlankLine()
+	fmt.Printf("### %v ###", txt)
+	BlankLine()
+}
