@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/muriloperosa/notes-go/output"
@@ -16,6 +15,7 @@ type Note struct {
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
 	CreatedAt time.Time `json:"created_at"`
+	fileName  string
 }
 
 func (note Note) Show() {
@@ -24,8 +24,7 @@ func (note Note) Show() {
 }
 
 func (note Note) Save() error {
-	fileName := strings.ReplaceAll(note.Title, " ", "_")
-	fileName = STORAGE_PATH + strings.ToLower(fileName) + ".json"
+	fileName := STORAGE_PATH + note.fileName
 
 	content, err := json.Marshal(note)
 
@@ -50,5 +49,6 @@ func New(title string, content string) (*Note, error) {
 		Title:     title,
 		Content:   content,
 		CreatedAt: time.Now(),
+		fileName:  time.Now().Format("20060102150405") + ".json",
 	}, nil
 }
