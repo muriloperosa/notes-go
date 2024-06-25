@@ -12,7 +12,8 @@ func Menu() {
 	output.BlankLine()
 	output.TextLn("[0] Exit")
 	output.TextLn("[1] Create a new note")
-	output.TextLn("[2] ...")
+	output.TextLn("[2] Read note")
+	output.TextLn("[3] ...")
 }
 
 func Goodbye() {

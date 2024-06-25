@@ -23,8 +23,12 @@ type Note struct {
 }
 
 func (note Note) Show() {
+	output.BlankLine()
+	output.Notice("Note")
+	output.BlankLine()
 	output.TextLn("Title: " + note.Title)
 	output.TextLn("Content: " + note.Content)
+	output.BlankLine()
 }
 
 func (note Note) ShortTitle(maxLen int) string {
