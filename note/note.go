@@ -51,6 +51,11 @@ func (note Note) Save() error {
 	return os.WriteFile(fileName, content, 0644)
 }
 
+func (note Note) Delete() error {
+	fileName := STORAGE_PATH + note.fileName
+	return os.Remove(fileName)
+}
+
 func New(title string, content string) (*Note, error) {
 
 	if title == "" {

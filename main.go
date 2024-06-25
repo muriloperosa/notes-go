@@ -1,8 +1,6 @@
 package main
 
 import (
-	"errors"
-
 	"github.com/muriloperosa/notes-go/display"
 	"github.com/muriloperosa/notes-go/input"
 	"github.com/muriloperosa/notes-go/note"
@@ -15,13 +13,17 @@ func main() {
 	for {
 		display.Menu()
 		output.BlankLine()
-		opt := input.Int("Enter your choice: ")
+		opt := input.Int("Enter your choice:")
 
 		switch opt {
 		case 1:
 			createNote()
 		case 2:
 			ReadNote()
+		case 3:
+			EditNote()
+		case 4:
+			DeleteNote()
 		default:
 			display.Goodbye()
 			return
@@ -54,32 +56,39 @@ func createNote() {
 }
 
 func ReadNote() {
-	notes, err := note.GetAll()
+
+	note, err := display.SelectNote()
+
+	if err != nil {
+		output.Error(err)
+	}
+
+	note.Show()
+}
+
+func EditNote() {}
+
+func DeleteNote() {
+	note, err := display.SelectNote()
 
 	if err != nil {
 		output.Error(err)
 		return
 	}
 
-	if len(notes) == 0 {
-		output.Notice("No notes found!")
+	confirmed := input.Confirmation("Are you sure to delete the note?")
+
+	if !confirmed {
+		output.Notice("Operation cancelled!")
 		return
 	}
 
-	err = note.ListAll(notes)
+	err = note.Delete()
 
 	if err != nil {
 		output.Error(err)
 		return
 	}
 
-	output.BlankLine()
-	opt := input.Int("Enter your the note code: ")
-
-	if opt > len(notes) || opt <= 0 {
-		output.Error(errors.New("invalid option selected"))
-		return
-	}
-
-	notes[opt-1].Show()
+	output.Notice("Note deleted successfully!")
 }

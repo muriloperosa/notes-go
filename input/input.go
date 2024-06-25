@@ -37,3 +37,12 @@ func Int(prompt string) int {
 
 	return value
 }
+
+func Confirmation(question string) bool {
+	output.BlankLine()
+	fmt.Printf("%v [y/n] ", question)
+	var value string
+	fmt.Scan(&value)
+
+	return strings.ToLower(value) == "y"
+}
