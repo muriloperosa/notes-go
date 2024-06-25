@@ -61,12 +61,33 @@ func readNote() {
 
 	if err != nil {
 		output.Error(err)
+		return
 	}
 
 	note.Show()
 }
 
-func editNote() {}
+func editNote() {
+	note, err := display.SelectNote()
+
+	if err != nil {
+		output.Error(err)
+		return
+	}
+
+	title := input.Text("Enter the new title:")
+	content := input.Text("Enter the new content:")
+
+	err = note.Edit(title, content)
+
+	if err != nil {
+		output.Error(err)
+		return
+	}
+
+	output.Notice("Note edited successfully!")
+
+}
 
 func deleteNote() {
 	note, err := display.SelectNote()

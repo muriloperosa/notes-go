@@ -19,6 +19,7 @@ type Note struct {
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
 	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 	fileName  string
 }
 
@@ -51,6 +52,23 @@ func (note Note) Save() error {
 	return os.WriteFile(fileName, content, 0644)
 }
 
+func (note Note) Edit(title string, content string) error {
+
+	if title == "" {
+		return errors.New("invalid title for the note")
+	}
+
+	if content == "" {
+		return errors.New("invalid content for the note")
+	}
+
+	note.Title = title
+	note.Content = content
+	note.UpdatedAt = time.Now()
+
+	return note.Save()
+}
+
 func (note Note) Delete() error {
 	fileName := STORAGE_PATH + note.fileName
 	return os.Remove(fileName)
@@ -70,6 +88,7 @@ func New(title string, content string) (*Note, error) {
 		Title:     title,
 		Content:   content,
 		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 		fileName:  time.Now().Format("20060102150405") + ".json",
 	}, nil
 }
