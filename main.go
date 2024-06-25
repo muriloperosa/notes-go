@@ -19,11 +19,11 @@ func main() {
 		case 1:
 			createNote()
 		case 2:
-			ReadNote()
+			readNote()
 		case 3:
-			EditNote()
+			editNote()
 		case 4:
-			DeleteNote()
+			deleteNote()
 		default:
 			display.Goodbye()
 			return
@@ -55,7 +55,7 @@ func createNote() {
 	output.Notice("New note created successfully!")
 }
 
-func ReadNote() {
+func readNote() {
 
 	note, err := display.SelectNote()
 
@@ -66,9 +66,9 @@ func ReadNote() {
 	note.Show()
 }
 
-func EditNote() {}
+func editNote() {}
 
-func DeleteNote() {
+func deleteNote() {
 	note, err := display.SelectNote()
 
 	if err != nil {
